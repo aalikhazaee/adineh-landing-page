@@ -35,10 +35,12 @@ No build tools are required. To run the project locally:
 1. Clone the repository:
 ```bash
 git clone https://github.com/aalikhazaee/adineh-landing-page.git
+```
 
 2. Navigate to the directory:
 ```bash
 cd adineh-landing-page
+```
 
 3. Open index.html in a web browser or use a local development server (e.g., VS Code Live Server).
 
