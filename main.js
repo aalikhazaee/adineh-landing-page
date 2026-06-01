@@ -272,13 +272,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const productsContainer = document.getElementById("products-container");
 
   async function fetchProducts() {
+    const cacheKey = "adineh_products_cache";
+    const cacheTimeKey = "adineh_products_cache_time";
+    const cacheDuration = 1000 * 60 * 15;
+
+    const cachedData = sessionStorage.getItem(cacheKey);
+    const cachedTime = sessionStorage.getItem(cacheTimeKey);
+
+    if (cachedData && cachedTime && Date.now() - cachedTime < cacheDuration) {
+      console.log("Loaded from Cache ⚡");
+      renderProducts(JSON.parse(cachedData));
+      return;
+    }
+
     try {
       const response = await fetch(
-        "https://adineh.market/wp-json/adineh/v1/adineh-stock/",
+        "https://adineh.market/wp-json/adineh/v1/adineh-stock/?per_page=15&limit=15",
       );
+
       if (!response.ok) throw new Error("Network response error");
       const data = await response.json();
-      renderProducts(data.content);
+
+      if (data && data.content) {
+        sessionStorage.setItem(cacheKey, JSON.stringify(data.content));
+        sessionStorage.setItem(cacheTimeKey, Date.now());
+        renderProducts(data.content);
+      }
     } catch (error) {
       console.error("Fetch error:", error);
       productsContainer.innerHTML = `
