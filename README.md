@@ -47,6 +47,7 @@ cd adineh-landing-page
 ---
 
 ## Project Structure
+```plaintext
 .
 ├── index.html      # Main page structure and layout
 ├── main.js         # DOM manipulation and API integration logic
