@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>آدینه مارکت | فروش کتاب دست دوم</title>
+    <link rel="icon" type="image/png" href="./logo1.png" />
+    <link rel="apple-touch-icon" href="./logo1.png" />
+    <link
+      href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Vazirmatn", "sans-serif"] },
+            colors: {
+              brand: { dark: "#0e523b", light: "#e8f5f0", accent: "#1ab171" },
+              discount: "#e3000f",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Base Variables & Easings */
+      :root {
+        --spring-easing: linear(
+          0,
+          0.0018,
+          0.0069 1.15%,
+          0.026 2.3%,
+          0.0637,
+          0.1135 5.18%,
+          0.2229 7.78%,
+          0.5977 15.84%,
+          0.7014,
+          0.7904,
+          0.8641,
+          0.9228,
+          0.9676 28.8%,
+          1.0032 31.68%,
+          1.0225,
+          1.0352 36.29%,
+          1.0431 38.88%,
+          1.046 42.05%,
+          1.0448 44.35%,
+          1.0407 47.23%,
+          1.0118 61.63%,
+          1.0025 69.41%,
+          0.9981 80.35%,
+          0.9992 99.94%
+        );
+      }
+
+      body {
+        font-family: "Vazirmatn", sans-serif;
+        background-color: #f9fafb;
+        padding-bottom: 90px;
+        overflow-x: hidden;
+      }
+      @media (min-width: 768px) {
+        body {
+          padding-bottom: 0;
+        }
+      }
+
+      /* Action Buttons */
+      .action-btn {
+        position: relative;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.2rem;
+        height: 2.2rem;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        transition:
+          transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+          color 0.3s ease;
+        color: #4b5563;
+        flex-shrink: 0;
+      }
+      @media (min-width: 768px) {
+        .action-btn {
+          width: 2.5rem;
+          height: 2.5rem;
+        }
+      }
+      .action-btn:hover {
+        transform: translateY(-3px) scale(1.1);
+        color: #0e523b;
+      }
+      .action-btn.selected {
+        color: #ef4444;
+      }
+      .action-btn.selected svg {
+        filter: drop-shadow(0 0 3px rgba(239, 68, 68, 0.4));
+      }
+
+      .anchored-pointer {
+        position: absolute;
+        position-anchor: --selected;
+        top: anchor(top);
+        left: anchor(left);
+        width: 2.5rem;
+        height: 2.5rem;
+        display: block;
+        background: none;
+        border: 1.5px solid rgba(239, 68, 68, 0.3);
+        border-radius: 50%;
+        transition:
+          all 0.6s var(--spring-easing),
+          opacity 0.3s ease;
+        pointer-events: none;
+        z-index: 40;
+        opacity: 0;
+      }
+
+      /* Mobile Navigation */
+      .bottom-nav-btn {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition:
+          transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+          color 0.3s ease;
+        color: #9ca3af;
+      }
+      .bottom-nav-btn i {
+        transition: filter 0.4s ease;
+      }
+      .bottom-nav-btn.active {
+        transform: translateY(-3px);
+        color: #1ab171;
+      }
+      .bottom-nav-btn.active i {
+        filter: drop-shadow(0 4px 6px rgba(26, 177, 113, 0.5));
+      }
+
+      /* Utils & Animations */
+      .category-card {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(14, 82, 59, 0.2);
+      }
+      .fade-in {
+        animation: fadeIn 0.5s forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .animate-fade-in-up {
+        opacity: 0;
+        animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+      .animate-slide-in-right {
+        opacity: 0;
+        animation: slideInRight 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px) scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(-40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .delay-75 {
+        animation-delay: 75ms;
+      }
+      .delay-150 {
+        animation-delay: 150ms;
+      }
+      .delay-225 {
+        animation-delay: 225ms;
+      }
+      .delay-300 {
+        animation-delay: 300ms;
+      }
+    </style>
+  </head>
+  <body class="text-gray-800 antialiased pt-20 md:pt-24">
+    <div
+      id="header-wrapper"
+      class="fixed top-0 left-0 w-full z-50 flex justify-center md:top-4 md:px-4 pointer-events-none transition-all duration-500"
+    >
+      <header
+        id="main-header"
+        class="pointer-events-auto w-full max-w-7xl bg-white/95 backdrop-blur-md border border-gray-200/50 shadow-sm rounded-none md:rounded-full py-3 px-4 md:px-8 flex justify-between items-center transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
+      >
+        <div class="flex items-center shrink-0">
+          <img
+            src="./logo.png"
+            alt="Adineh Logo"
+            class="h-8 md:h-12 w-auto object-contain cursor-pointer transition-transform hover:scale-105"
+          />
+        </div>
+
+        <nav
+          class="hidden md:flex flex-1 justify-center gap-6 lg:gap-10 text-sm font-bold text-gray-700"
+        >
+          <a
+            href="#"
+            class="relative py-2 group hover:text-brand-dark transition-colors"
+          >
+            کتاب عمومی
+            <span
+              class="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-brand-dark transition-all duration-300 ease-out -translate-x-1/2 group-hover:w-full"
+            ></span>
+          </a>
+          <a
+            href="#"
+            class="relative py-2 group hover:text-brand-dark transition-colors"
+          >
+            کمک درسی
+            <span
+              class="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-brand-dark transition-all duration-300 ease-out -translate-x-1/2 group-hover:w-full"
+            ></span>
+          </a>
+          <a
+            href="#"
+            class="relative py-2 group hover:text-brand-dark transition-colors"
+          >
+            لوازم تحریر
+            <span
+              class="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-brand-dark transition-all duration-300 ease-out -translate-x-1/2 group-hover:w-full"
+            ></span>
+          </a>
+        </nav>
+
+        <div
+          class="flex items-center gap-2 md:gap-3 shrink-0 flex-1 md:flex-none justify-end md:justify-start"
+        >
+          <div class="anchored-pointer hidden md:block"></div>
+          <div
+            id="search-box-container"
+            class="relative w-full max-w-[200px] sm:max-w-[280px] md:w-32 lg:w-44 focus-within:md:w-40 focus-within:lg:w-56 flex items-center transition-all duration-300 z-50 ml-1 md:ml-0"
+            dir="rtl"
+          >
+            <input
+              id="search-input"
+              type="text"
+              placeholder="جستجو..."
+              class="peer w-full h-10 bg-gray-100 rounded-full pr-10 pl-4 text-xs md:text-sm text-gray-700 outline-none transition-all duration-300 ease-in-out border border-transparent focus:bg-white focus:border-brand-dark shadow-none focus:shadow-lg cursor-text placeholder-gray-400"
+            />
+            <div
+              class="absolute right-0 top-0 w-10 h-10 flex items-center justify-center pointer-events-none text-gray-500 peer-focus:text-brand-dark transition-colors duration-300"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5"
+                viewBox="0 0 256 256"
+              >
+                <path
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="16"
+                  d="m216.5 216.5l-43.5-43.5M192 112a80 80 100 1 1-80-80a80 80 100 0 1 80 80Z"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <button class="action-btn hidden md:flex">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-5 h-5 md:w-6 md:h-6"
+              viewBox="0 0 256 256"
+            >
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="16"
+                d="M128 120a40 40 0 1 0-40-40a40 40 0 0 0 40 40Zm0 8c-44.2 0-80 35.8-80 80v8h160v-8c0-44.2-35.8-80-80-80Z"
+              />
+            </svg>
+          </button>
+
+          <button class="action-btn hidden md:flex relative">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-5 h-5 md:w-6 md:h-6"
+              viewBox="0 0 256 256"
+            >
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="16"
+                d="M42.3 72H216l-24 104H64.8ZM21.7 48h20.6l22.5 128m111.2 32a16 16 0 1 1-16-16a16 16 0 0 1 16 16Zm-72 0a16 16 0 1 1-16-16a16 16 0 0 1 16 16Z"
+              />
+            </svg>
+            <span
+              class="absolute -top-1.5 -right-1.5 bg-discount text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold shadow-sm"
+              >2</span
+            >
+          </button>
+        </div>
+      </header>
+    </div>
+
+    <section class="container mx-auto px-4 mt-4 md:mt-6">
+      <div
+        class="relative w-full aspect-[163/70] rounded-2xl md:rounded-3xl overflow-hidden shadow-sm group bg-gray-100"
+      >
+        <div
+          id="slider-container"
+          class="flex w-full h-full transition-transform duration-700 ease-in-out"
+          style="transform: translateX(0%)"
+        >
+          <a href="#" class="w-full h-full flex-shrink-0 block relative">
+            <img
+              src="./banner1.png"
+              alt="کتاب های دست دوم"
+              class="w-full h-full object-cover"
+            />
+          </a>
+          <a href="#" class="w-full h-full flex-shrink-0 block relative">
+            <img
+              src="./banner2.png"
+              alt="تخفیف ویژه"
+              class="w-full h-full object-cover"
+            />
+          </a>
+        </div>
+        <button
+          id="next-slide"
+          class="absolute left-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 bg-white/50 hover:bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-gray-800 shadow-md opacity-0 group-hover:opacity-100 transition-all z-20 hover:scale-110"
+        >
+          <i class="ph ph-caret-left text-lg md:text-xl font-bold"></i>
+        </button>
+        <button
+          id="prev-slide"
+          class="absolute right-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 bg-white/50 hover:bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-gray-800 shadow-md opacity-0 group-hover:opacity-100 transition-all z-20 hover:scale-110"
+        >
+          <i class="ph ph-caret-right text-lg md:text-xl font-bold"></i>
+        </button>
+        <div
+          class="absolute bottom-3 md:bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20"
+          dir="ltr"
+        >
+          <button
+            class="slider-dot w-6 md:w-8 h-2 md:h-2.5 rounded-full bg-white shadow-md transition-all duration-300"
+          ></button>
+          <button
+            class="slider-dot w-2 md:w-2.5 h-2 md:h-2.5 rounded-full bg-white/50 hover:bg-white shadow-sm transition-all duration-300"
+          ></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="container mx-auto px-4 mt-12 mb-8">
+      <div class="flex justify-between items-center mb-6 pl-2">
+        <h2
+          class="text-2xl md:text-3xl font-extrabold text-gray-800 flex items-center gap-2 tracking-tight"
+        >
+          <i class="ph-fill ph-student text-brand-accent"></i> پایه‌ت رو انتخاب
+          کن
+        </h2>
+      </div>
+      <div
+        id="category-container"
+        class="transition-all duration-500 ease-in-out origin-top w-full overflow-hidden"
+      ></div>
+    </section>
+
+    <section class="container mx-auto px-4 mt-16">
+      <div
+        class="bg-discount rounded-3xl p-6 md:p-8 text-white relative overflow-hidden group"
+      >
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl md:text-2xl font-bold flex items-center gap-2">
+            <i class="ph-fill ph-fire text-yellow-300"></i> پیشنهاد های ویژه
+          </h2>
+          <button
+            class="bg-white text-discount px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-100 transition"
+          >
+            مشاهده همه
+          </button>
+        </div>
+
+        <button
+          id="slider-right-btn"
+          class="hidden md:flex absolute right-4 top-1/2 translate-y-2 w-10 h-10 bg-white/90 backdrop-blur rounded-full items-center justify-center text-discount hover:bg-white shadow-lg opacity-0 group-hover:opacity-100 transition-all z-10 hover:scale-110"
+        >
+          <i class="ph ph-caret-right text-xl font-bold"></i>
+        </button>
+        <button
+          id="slider-left-btn"
+          class="hidden md:flex absolute left-4 top-1/2 translate-y-2 w-10 h-10 bg-white/90 backdrop-blur rounded-full items-center justify-center text-discount hover:bg-white shadow-lg opacity-0 group-hover:opacity-100 transition-all z-10 hover:scale-110"
+        >
+          <i class="ph ph-caret-left text-xl font-bold"></i>
+        </button>
+
+        <div
+          id="products-container"
+          class="flex overflow-x-auto gap-4 pb-2 snap-x snap-mandatory hide-scrollbar cursor-grab relative z-0"
+        >
+          <div
+            class="w-[160px] md:w-[200px] shrink-0 bg-white/20 animate-pulse h-64 rounded-2xl"
+          ></div>
+          <div
+            class="w-[160px] md:w-[200px] shrink-0 bg-white/20 animate-pulse h-64 rounded-2xl"
+          ></div>
+          <div
+            class="w-[160px] md:w-[200px] shrink-0 bg-white/20 animate-pulse h-64 rounded-2xl"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container mx-auto px-4 mt-16 mb-12 relative">
+      <div
+        class="absolute top-0 right-10 w-64 h-64 bg-brand-light rounded-full blur-3xl opacity-60 pointer-events-none z-0"
+      ></div>
+      <div
+        class="relative z-10 bg-white/70 backdrop-blur-2xl rounded-[2rem] p-8 md:p-10 border border-white shadow-[0_20px_40px_-15px_rgba(14,82,59,0.05)] flex flex-col md:flex-row gap-10 items-center group/section transition-all duration-500 hover:shadow-[0_20px_40px_-15px_rgba(14,82,59,0.1)]"
+      >
+        <div class="flex-1 space-y-6 text-center md:text-right">
+          <div
+            class="inline-flex items-center gap-2 bg-brand-light/80 px-4 py-2 rounded-full text-brand-dark text-xs font-bold mb-2 border border-white shadow-sm"
+          >
+            <i class="ph-fill ph-info"></i> بیشتر بدانید
+          </div>
+          <h2
+            class="text-3xl md:text-4xl font-extrabold text-gray-800 tracking-tight"
+          >
+            درباره
+            <span
+              class="text-transparent bg-clip-text bg-gradient-to-l from-brand-dark to-brand-accent"
+              >آدینه مارکت</span
+            >
+          </h2>
+          <p
+            class="text-gray-600 leading-relaxed text-sm md:text-base font-medium"
+          >
+            آدینه مارکت، مرکز خرید کتاب‌های کمک آموزشی و نمایندگی کلیه‌ی
+            انتشارات است که با ضمانت جدیدترین چاپ، بیشترین تخفیف و ضمانت تعویض
+            کالا به شما عزیزان خدمت‌رسانی می‌کند.
+          </p>
+          <p
+            class="text-gray-600 leading-relaxed text-sm md:text-base font-medium"
+          >
+            برای اومدن به کتابفروشیِ ما نیاز به هیچ هماهنگی نیست هروقت که
+            خواستید می‌تونید تشریف بیارید. سوالی یا نیاز به مشاوره دارید؟ یه تیم
+            متخصص و حرفه‌ای منتظر شنیدن صدای شماست.
+          </p>
+        </div>
+
+        <div class="flex-1 w-full space-y-5">
+          <div
+            class="flex items-center gap-4 md:gap-5 bg-gradient-to-r from-brand-light/40 to-transparent p-4 md:p-5 rounded-[1.5rem] border border-brand-light hover:border-brand-accent/30 hover:bg-white/80 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group backdrop-blur-md"
+          >
+            <div
+              class="w-12 h-12 md:w-14 md:h-14 bg-brand-dark text-white rounded-[1.2rem] flex items-center justify-center shadow-[0_10px_20px_-5px_rgba(14,82,59,0.4)] group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shrink-0"
+            >
+              <i class="ph ph-headset text-2xl md:text-3xl"></i>
+            </div>
+            <div class="flex-1">
+              <h4 class="font-bold text-gray-800 text-sm md:text-base">
+                مرکز تماس مشتریان
+              </h4>
+              <p class="text-[11px] md:text-xs text-gray-500 mt-1 font-medium">
+                پاسخگویی تلفنی همه‌روزه از ۹ تا ۲۱
+              </p>
+            </div>
+            <a
+              href="tel:09909670803"
+              class="w-10 h-10 md:w-12 md:h-12 shrink-0 bg-white border border-gray-100 rounded-full flex items-center justify-center text-brand-dark shadow-sm hover:bg-brand-dark hover:text-white transition-all duration-300 hover:scale-110 z-20"
+            >
+              <i class="ph-fill ph-phone text-lg md:text-xl"></i>
+            </a>
+          </div>
+
+          <div
+            class="flex items-center gap-4 md:gap-5 bg-gradient-to-r from-brand-light/40 to-transparent p-4 md:p-5 rounded-[1.5rem] border border-brand-light hover:border-brand-accent/30 hover:bg-white/80 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group backdrop-blur-md"
+          >
+            <div
+              class="w-12 h-12 md:w-14 md:h-14 bg-brand-accent text-white rounded-[1.2rem] flex items-center justify-center shadow-[0_10px_20px_-5px_rgba(26,177,113,0.4)] group-hover:scale-110 group-hover:-rotate-6 transition-all duration-300 shrink-0"
+            >
+              <i class="ph ph-clock text-2xl md:text-3xl"></i>
+            </div>
+            <div class="flex-1">
+              <h4 class="font-bold text-gray-800 text-sm md:text-base">
+                ساعت کار مجموعه‌ی ما
+              </h4>
+              <p class="text-[11px] md:text-xs text-gray-500 mt-1 font-medium">
+                ۸:۳۰ صبح تا ۹ شب
+              </p>
+            </div>
+            <a
+              href="#"
+              target="_blank"
+              class="w-10 h-10 md:w-12 md:h-12 shrink-0 bg-white border border-gray-100 rounded-full flex items-center justify-center text-brand-accent shadow-sm hover:bg-brand-accent hover:text-white transition-all duration-300 hover:scale-110 z-20"
+            >
+              <i class="ph-fill ph-map-pin text-lg md:text-xl"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="relative mt-24 pb-24 md:pb-0 overflow-hidden">
+      <div
+        class="absolute bottom-0 left-10 w-72 h-72 bg-brand-light rounded-full blur-3xl opacity-50 pointer-events-none z-0"
+      ></div>
+      <div
+        class="absolute bottom-20 right-20 w-64 h-64 bg-brand-light rounded-full blur-3xl opacity-40 pointer-events-none z-0"
+      ></div>
+
+      <div
+        class="relative z-10 bg-white/70 backdrop-blur-2xl rounded-t-[2.5rem] md:rounded-t-[3rem] border-t border-white shadow-[0_-20px_40px_-15px_rgba(14,82,59,0.05)] pt-12 md:pt-16"
+      >
+        <div
+          class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8 mb-12 text-center md:text-right"
+        >
+          <div class="space-y-5 flex flex-col items-center md:items-start">
+            <div
+              class="bg-white p-3 rounded-[1.5rem] shadow-sm border border-gray-100 inline-block mb-2"
+            >
+              <img
+                src="./logo.png"
+                alt="Logo"
+                class="h-10 md:h-12 object-contain"
+                onerror="
+                  this.src = 'https://via.placeholder.com/150x40?text=Logo'
+                "
+              />
+            </div>
+            <p
+              class="text-sm text-gray-500 font-medium leading-relaxed max-w-xs"
+            >
+              مرکز خرید کتاب‌های کمک آموزشی و نمایندگی کلیه انتشارات با تضمین
+              کیفیت، کمترین قیمت و بیشترین تخفیف در سراسر کشور.
+            </p>
+          </div>
+
+          <div class="space-y-6">
+            <h4
+              class="font-extrabold text-gray-800 text-lg relative inline-block"
+            >
+              دسترسی آسان<span
+                class="absolute -bottom-2 right-0 w-1/2 h-1 bg-gradient-to-l from-brand-accent to-brand-dark rounded-full"
+              ></span>
+            </h4>
+            <ul class="text-sm font-medium text-gray-500 space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="group flex items-center justify-center md:justify-start gap-2 hover:text-brand-dark transition-all duration-300"
+                  ><span
+                    class="w-1.5 h-1.5 rounded-full bg-brand-accent/50 group-hover:bg-brand-accent transition-colors"
+                  ></span
+                  ><span class="group-hover:-translate-x-1 transition-transform"
+                    >درباره ما</span
+                  ></a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="group flex items-center justify-center md:justify-start gap-2 hover:text-brand-dark transition-all duration-300"
+                  ><span
+                    class="w-1.5 h-1.5 rounded-full bg-brand-accent/50 group-hover:bg-brand-accent transition-colors"
+                  ></span
+                  ><span class="group-hover:-translate-x-1 transition-transform"
+                    >تماس با ما</span
+                  ></a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="group flex items-center justify-center md:justify-start gap-2 hover:text-brand-dark transition-all duration-300"
+                  ><span
+                    class="w-1.5 h-1.5 rounded-full bg-brand-accent/50 group-hover:bg-brand-accent transition-colors"
+                  ></span
+                  ><span class="group-hover:-translate-x-1 transition-transform"
+                    >پیگیری سفارشات</span
+                  ></a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="space-y-6">
+            <h4
+              class="font-extrabold text-gray-800 text-lg relative inline-block"
+            >
+              ارتباط با ما<span
+                class="absolute -bottom-2 right-0 w-1/2 h-1 bg-gradient-to-l from-brand-accent to-brand-dark rounded-full"
+              ></span>
+            </h4>
+            <div class="space-y-3">
+              <p
+                class="text-sm text-gray-600 font-medium flex items-center justify-center md:justify-start gap-2"
+              >
+                <i class="ph-fill ph-phone-call text-brand-accent text-lg"></i
+                >پشتیبانی: ۰۹۹۰۹۶۷۰۸۰۳
+              </p>
+              <p
+                class="text-sm text-gray-600 font-medium flex items-center justify-center md:justify-start gap-2"
+              >
+                <i class="ph-fill ph-envelope text-brand-accent text-lg"></i
+                >info@adineh.market
+              </p>
+            </div>
+            <div class="flex gap-3 justify-center md:justify-start mt-4">
+              <a
+                href="#"
+                class="w-10 h-10 bg-white shadow-sm hover:shadow-lg border border-gray-100 rounded-[1rem] flex items-center justify-center text-brand-dark hover:bg-brand-dark hover:text-white hover:-translate-y-1 transition-all duration-300 group"
+                ><i
+                  class="ph ph-telegram-logo text-xl group-hover:scale-110 transition-transform"
+                ></i
+              ></a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-white shadow-sm hover:shadow-lg border border-gray-100 rounded-[1rem] flex items-center justify-center text-brand-dark hover:bg-gradient-to-tr hover:from-yellow-500 hover:via-pink-500 hover:to-purple-500 hover:text-white hover:border-transparent hover:-translate-y-1 transition-all duration-300 group"
+                ><i
+                  class="ph ph-instagram-logo text-xl group-hover:scale-110 transition-transform"
+                ></i
+              ></a>
+            </div>
+          </div>
+
+          <div class="flex justify-center md:justify-end items-center">
+            <div
+              class="bg-white/80 backdrop-blur-md p-4 rounded-[1.5rem] border border-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-400 cursor-pointer group"
+            >
+              <img
+                src="./enamad.png"
+                alt="Enamad"
+                class="h-20 opacity-75 group-hover:opacity-100 transition-opacity duration-300 filter group-hover:contrast-125"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-gray-200/60 py-6 text-center text-xs md:text-sm text-gray-400 font-medium"
+        >
+          تمام حقوق مادی و معنوی این وب‌سایت برای
+          <span class="text-brand-dark font-bold">آدینه مارکت</span> محفوظ است.
+        </div>
+      </div>
+    </footer>
+
+    <div
+      class="md:hidden fixed bottom-4 left-0 w-full z-50 flex justify-center px-4 pointer-events-none"
+    >
+      <nav
+        class="pointer-events-auto w-full max-w-md bg-white/90 backdrop-blur-xl border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.12)] rounded-full flex justify-between items-center pt-3 pb-2 px-2"
+      >
+        <a href="#" class="bottom-nav-btn active"
+          ><i class="ph-fill ph-house text-[22px]"></i
+          ><span class="text-[10px] font-bold mt-1">خانه</span></a
+        >
+        <a href="#" class="bottom-nav-btn"
+          ><i class="ph ph-books text-[22px]"></i
+          ><span class="text-[10px] font-bold mt-1">دسته‌بندی</span></a
+        >
+        <a href="#" class="bottom-nav-btn relative"
+          ><i class="ph ph-shopping-cart text-[22px]"></i
+          ><span
+            class="absolute top-0 right-1/4 translate-x-1/2 -translate-y-1 bg-discount text-white text-[9px] w-3.5 h-3.5 rounded-full flex items-center justify-center"
+            >2</span
+          ><span class="text-[10px] font-bold mt-1">سبد</span></a
+        >
+        <a href="#" class="bottom-nav-btn"
+          ><i class="ph ph-user text-[22px]"></i
+          ><span class="text-[10px] font-bold mt-1">پروفایل</span></a
+        >
+      </nav>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
